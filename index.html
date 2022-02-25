@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+<body>
+    <div class="container my-5">
+		<div class="row">
+			<div class="col-md-8">
+				<form method="post" action="">
+            
+				    <div class="form-group fieldGroup">
+				        <div class="input-group">
+                            <div class="input-group">
+				            <input type="text" name="name[]" class="form-control" placeholder="Product Name"/>
+				            <input onblur="findSum()" id="price_product" type="number" name="price[]" class="form-control" placeholder="Product Price"/>
+				            <input onblur="findSum()" id="qty_product" type="number" name="qty[]" class="form-control" placeholder="Qty"/>
+                            <input id= "total" onblur="findTotal()" type="number" name="total[]" class="form-control" placeholder="Total" />
+				            <div class="input-group-addon ml-3"> 
+				                <a href="javascript:void(0)" class="btn btn-success addMore"><i class="fas fa-plus"></i></a>
+				            </div>
+				        </div>
+				    </div>
+				    
+				    			    
+				</form>
+				<div class="form-group fieldGroupCopy" style="display: none;">
+				    <div class="input-group">
+				        <input type="text" name="name[]" class="form-control" placeholder="Product Name"/>
+                        <input onblur="findSum()" id="price_product" type="number" name="price[]" class="form-control" placeholder="Product Price"/>
+                        <input onblur="findSum()" id="qty_product" type="number" name="qty[]" class="form-control" placeholder="Qty"/>
+                            <input onblur="findTotal()" type="number" name="total[]" class="form-control" placeholder="Total"/>
+				        <div class="input-group-addon"> 
+				            <a href="javascript:void(0)" class="btn btn-danger remove"><i class="fas fa-trash"></i></a>
+				        </div>
+				    </div>
+				</div>
+                
+			</div>
+            Total : <input type="text" name="total" id="total2"/>
+		</div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+		$(document).ready(function(){
+    // membatasi jumlah inputan
+    var maxGroup = 10;
+    
+    //melakukan proses multiple input 
+    $(".addMore").click(function(){
+        if($('body').find('.fieldGroup').length < maxGroup){
+            var fieldHTML = '<div class="form-group fieldGroup">'+$(".fieldGroupCopy").html()+'</div>';
+            $('body').find('.fieldGroup:last').after(fieldHTML);
+        }else{
+            alert('Maximum '+maxGroup+' groups are allowed.');
+        }
+    });
+    
+    //remove fields group
+    $("body").on("click",".remove",function(){ 
+        $(this).parents(".fieldGroup").remove();
+    });
+});
+
+function findSum(){
+    var a = document.getElementById('price_product');
+    var b = document.getElementById('qty_product');
+    sum = parseInt(a.value) * parseInt(b.value);
+    document.getElementById('total').value = sum;
+    document.getElementById('total2').value = sum;
+}
+
+
+
+</script>
+</body>
+</html>
